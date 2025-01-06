@@ -6,6 +6,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
+import Footer from "../Footer/Footer";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 
 function App() {
@@ -45,10 +46,11 @@ function App() {
       <div className="page__content">
         <Header handleAddClick={handleAddClick} weatherData={weatherData}/>
         <Main weatherData={weatherData} handleCardClick={handleCardClick} />
+        <Footer />
       </div>
       <ModalWithForm
         title="New garment"
-        buttonText="Add Garment"
+        buttonText="Add garment"
         activeModal={activeModal}
         onClose={closeActiveModal}
       >
@@ -58,7 +60,7 @@ function App() {
             type="text"
             className="modal__input"
             id="name"
-            placeholder="name"
+            placeholder="Name"
           />
         </label>
         <label htmlFor="ImageUrl" className="modal__label">
@@ -94,6 +96,7 @@ function App() {
         card={selectedCard}
         onClose={closeActiveModal}
       />
+      
     </div>
   );
 }

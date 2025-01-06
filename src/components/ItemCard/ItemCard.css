@@ -7,6 +7,7 @@
   display: flex;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
 .card__name {
@@ -16,7 +17,7 @@
   margin: 0;
   top: 15px;
   border-radius: 4px;
-  /* font-family: Cabinet Grotesk; */
+  font-family: Cabinet Grotesk, sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
