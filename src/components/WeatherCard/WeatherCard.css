@@ -15,7 +15,7 @@ overflow: hidden;
     position: absolute;
     top: 20px;
     left: 16px;
-    font-family: Cabinet Grotesk, sans-serif;
+    font-family: "Cabinet Grotesk", sans-serif;
 }
 
 .weather-card__image{

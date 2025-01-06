@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
     visibility: hidden;
-    font-family: Cabinet Grotesk, sans-serif;
+    font-family: "Cabinet Grotesk", sans-serif;
     font-size: 16px;
     line-height: 20px;
     font-weight: 700;
@@ -22,9 +22,11 @@
 
 .modal__close {
     position: absolute;
+    width: 20px;
+    height: 20px;
     top: 20px;
     right: 28px;
-    background-image: url(".../assets/closeImageButton.png");
+    background-image: url("../../assets/closeImageButton.png");
     border: none;
 }
 
