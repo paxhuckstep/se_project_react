@@ -1,19 +1,18 @@
 .cards {
-
 }
 
 .cards__text {
-font-size: 20px;
-line-height: 25px; 
-font-weight: 700;
-font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 700;
+  font-family: "Cabinet Grotesk", sans-serif;
 }
 
 .cards__list {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  gap: 20px;
 }
