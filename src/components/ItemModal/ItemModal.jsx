@@ -1,7 +1,7 @@
 import "./ItemModal.css";
 
 function ItemModal({ activeModal, onClose, card, isOpen }) {
-  if(!isOpen) {
+  if (!isOpen) {
     return null;
   }
 

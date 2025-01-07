@@ -1,34 +1,34 @@
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #0000004d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Cabinet Grotesk", sans-serif;
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 700;
-  }
-  
-  .modal__content {
-    background-color: #fff;
-    position: relative;
-    padding: 28px 28px 36px;
-    max-width: 496px;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 20px;
-  }
-  .modal__close {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    top: 20px;
-    right: 28px;
-    background-color: transparent;
-    border: none;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0000004d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.modal__content {
+  background-color: #fff;
+  position: relative;
+  padding: 28px 28px 36px;
+  max-width: 496px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+.modal__close {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 20px;
+  right: 28px;
+  background-color: transparent;
+  border: none;
+}
