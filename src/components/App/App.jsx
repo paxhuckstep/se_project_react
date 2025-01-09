@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-
 import "./App.css";
+// import { Route, Routes } from "react-router-dom";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import { coordinates, APIkey } from "../../utils/constants";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
