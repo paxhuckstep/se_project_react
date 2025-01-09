@@ -1,34 +1,55 @@
 .toggle-switch {
-    width: 56px;
-    height: 28px;
-    border: 2px solid black;
-    border-radius: 20px;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
+  width: 56px;
+  height: 28px;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  cursor: pointer;
+  overflow: visible;
+  position: relative;
 }
 
 .toggle-switch__checkbox {
-    opacity: 0;
+  opacity: 0;
 }
 
 .toggle-switch__circle {
-    background-color: black;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    position: absolute;
-    left: 0;
+  background-color: black;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  transition: all 1s;
 }
 
 .toggle-switch__text {
-
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  position: absolute;
+  top: 6px;
 }
 
 .toggle-switch__text_F {
-
+  left: 9px;
+  color: #fff;
+  transition: all 1s;
 }
 
 .toggle-switch__text_C {
-    
+  right: 9px;
+  color: rgba(0, 0, 0, 0.5);
+  transition: all 1s;
+}
+
+.toggle-switch__checkbox:checked ~ .toggle-switch__circle {
+  left: 28px;
+}
+
+.toggle-switch__checkbox:checked ~ .toggle-switch__text_F {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.toggle-switch__checkbox:checked ~ .toggle-switch__text_C {
+  color: #fff;
 }
