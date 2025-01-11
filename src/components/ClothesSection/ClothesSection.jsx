@@ -2,7 +2,7 @@ import "./ClothesSection.css";
 import { defaultClothingItems } from "../../utils/constants";
 import ItemCard from "../ItemCard/ItemCard";
 
-function ClothesSection () {
+function ClothesSection ({ onCardClick }) {
     const clothingItems = defaultClothingItems;
     return (
 <div className="clothes-section">
@@ -11,14 +11,14 @@ function ClothesSection () {
     <button></button>
 </div>
 <div className="">
-<ul className="cards__list">
+<ul className="cardlothes-section__list">
           {clothingItems
             .map((item) => {
               return (
                 <ItemCard
                   key={item._id}
                   item={item}
-                //   onCardClick={handleCardClick} ----- pass in later
+                  onCardClick={onCardClick}
                 />
               );
             })}

@@ -26,9 +26,6 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit }) {
         setWeather("");
     };
 
-
-    console.log(weather);
-
     return (
         <ModalWithForm
         title="New garment"
