@@ -1,7 +1,7 @@
 import "./ItemModal.css";
 // import "../App/Modal.css";
 
-function ItemModal({ onClose, card, isOpen }) {
+function ItemModal({ onClose, card, isOpen, onDeleteClick }) {
   if (!isOpen) {
     return null;
   }
@@ -14,13 +14,15 @@ function ItemModal({ onClose, card, isOpen }) {
           type="button"
           className="modal__close modal__close_image"
         ></button>
-        <img src={card.link} alt={card.name} className="modal__image" />
+        <img src={card.imageUrl} alt={card.name} className="modal__image" />
         <div className="modal__footer">
-          <h2 className="modal__caption">{card.name}</h2>
+         <div className="modal__footer-top"> <h2 className="modal__caption">{card.name}</h2>
+          <button className="modal__delete-button" onClick={onDeleteClick}>Delete Item</button></div>
           <p className="modal__weather">Weather: {card.weather}</p>
         </div>
       </div>
     </div>
+
   );
 }
 

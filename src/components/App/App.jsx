@@ -12,6 +12,7 @@ import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { defaultClothingItems } from "../../utils/constants";
 import { getItems } from "../../utils/api";
+import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -40,6 +41,10 @@ function App() {
     setActiveModal("add-garment");
   };
 
+  const handleDeleteClick = () => {
+    setActiveModal("confirm-delete");
+  }
+
   const closeActiveModal = () => {
     setActiveModal("");
   };
@@ -51,6 +56,11 @@ function App() {
     ]);
     closeActiveModal();
   };
+
+  const handleConfirmDeleteModalSubmit = () => {
+    //api stuff
+    closeActiveModal();
+  }
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -106,10 +116,16 @@ function App() {
         ></AddItemModal>
 
         <ItemModal
-          activeModal={activeModal}
           card={selectedCard}
           onClose={closeActiveModal}
           isOpen={activeModal === "preview"}
+          onDeleteClick={handleDeleteClick}
+        />
+        <ConfirmDeleteModal 
+        card={selectedCard}
+        onClose={closeActiveModal}
+        isOpen={activeModal==="confirm-delete"}
+        onSubmit={handleConfirmDeleteModalSubmit}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

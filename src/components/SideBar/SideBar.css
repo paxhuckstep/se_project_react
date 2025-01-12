@@ -2,9 +2,11 @@
     display: flex;
 }
 .sidebar__avatar {
+    margin-left: 0;
     margin-right: 16px;
     height: 56px;
     width: 56px;
+    padding: 0;
 }
 
 .sidebar__username {

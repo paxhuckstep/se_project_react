@@ -7,6 +7,19 @@
   padding: 0;
   overflow: hidden;
 }
+.modal__footer-top {
+display: flex;
+}
+
+.modal__delete-button {
+  border: none;
+  background-color: transparent;
+  color: rgba(225, 77, 0, 1);
+  font-size: 20px;
+  line-height: 24px;
+  padding: 0;
+  margin-right: 32px;
+}
 
 .modal__caption {
   margin: 20px auto 12px 32px;
