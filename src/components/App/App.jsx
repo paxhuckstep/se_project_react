@@ -46,7 +46,7 @@ function App() {
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     setClothingItems((prevItems) => [
-      { name, link: imageUrl, weather },
+      { name, imageUrl, weather },
       ...prevItems,
     ]);
     closeActiveModal();
@@ -63,9 +63,9 @@ function App() {
 
   useEffect(() => {
     getItems().then((data) => {
-   setClothingItems((data) => [{ data.name, data.imageUrl, data.weather }])
-    }).catch(console.error)
-  }, [])
+      setClothingItems(data);
+    });
+  }, []);
 
   return (
     <CurrentTemperatureUnitContext.Provider
@@ -88,7 +88,12 @@ function App() {
             />
             <Route
               path="/profile"
-              element={<Profile onCardClick={handleCardClick} />}
+              element={
+                <Profile
+                  onCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
             />
           </Routes>
 

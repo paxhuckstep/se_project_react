@@ -1,4 +1,9 @@
 .profile {
     display: flex;
-    gap: 100px; /* Probably wrong */
+    /* gap: 100px; Probably wrong */
 }
+.profile__sidebar {
+margin: 47px 116px 0 40px;
+/* display: flex; */
+}
+
