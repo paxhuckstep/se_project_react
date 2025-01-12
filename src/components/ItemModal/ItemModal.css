@@ -21,6 +21,10 @@ display: flex;
   margin-right: 32px;
 }
 
+.modal__delete-button {
+  cursor: pointer;
+}
+
 .modal__caption {
   margin: 20px auto 12px 32px;
 }
