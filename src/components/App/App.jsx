@@ -10,8 +10,8 @@ import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { defaultClothingItems } from "../../utils/constants";
-import { getItems } from "../../utils/api";
+// import { defaultClothingItems } from "../../utils/constants";
+import { deleteItem, getItems, addItem } from "../../utils/api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
 
 function App() {
@@ -50,18 +50,22 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+    const newId = Math.max(...clothingItems.map((item) => item._id)) + 1;
     //api stuff
-    setClothingItems((prevItems) => [
-      { name, imageUrl, weather },
-      ...prevItems,
-    ]);
+    console.log(">>>", newId);
+    addItem({ name, imageUrl, weather }).then(() => {
+      setClothingItems((prevItems) => [
+        { name, imageUrl, weather },
+        ...prevItems,
+      ]);
+    });
     closeActiveModal();
   };
 
   const handleConfirmDeleteModalClick = (card) => {
-    console.log(card);
+    console.log(card._id);
     //api stuff
-    closeActiveModal();
+    deleteItem(card._id).then(closeActiveModal()).catch(console.error);
   };
 
   useEffect(() => {
@@ -116,7 +120,7 @@ function App() {
         <AddItemModal
           onClose={closeActiveModal}
           isOpen={activeModal === "add-garment"}
-          onhandleAddItemModalSubmit={handleAddItemModalSubmit}
+          onAddItemModalSubmit={handleAddItemModalSubmit}
         ></AddItemModal>
 
         <ItemModal

@@ -3,7 +3,7 @@ const baseUrl = "http://localhost:3001";
 function handleServerResponse(res) {
   if (res.ok) {
     return res.json();
-  } else return Promise.reject(`Error: ${res.status}`);
+  } else return Promise.reject(console.error);
 }
 
 //   function getItems() {
@@ -16,12 +16,14 @@ function getItems() {
   });
 }
 //------------------
-function addItem(item) {
+function addItem({ name, imageUrl, weather }) {
+  console.log("API", name);
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     body: JSON.stringify({
-      name: item.name,
-      imageUrl: item.imageUrl,
+      name: name,
+      weather: weather,
+      imageUrl: imageUrl,
       //does the server add a unique _id automatically?
     }),
   }).then((res) => {
@@ -29,9 +31,9 @@ function addItem(item) {
   });
 }
 
-function deleteItem(item) {
+function deleteItem(itemID) {
   //pass in itemID ??
-  return fetch(`${baseUrl}/items`, {
+  return fetch(`${baseUrl}/items/${itemID}`, {
     // items/itemID, does this go to the right item?
     method: "DELETE",
   }).then((res) => {

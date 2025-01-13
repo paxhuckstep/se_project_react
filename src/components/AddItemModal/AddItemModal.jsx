@@ -32,7 +32,7 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit }) {
       buttonText="Add garment"
       onClose={onClose}
       isOpen={isOpen}
-      onHandleSubmit={handleSubmit}
+      onSubmit={handleSubmit}
     >
       <label htmlFor="name" className="modal__label">
         Name
