@@ -1,72 +1,72 @@
 export const weatherOptions = [
   {
     day: true,
-    condition: 'clear',
+    condition: "clear",
     url: new URL("../assets/day/clear.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: 'clouds',
+    condition: "clouds",
     url: new URL("../assets/day/cloudy.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: 'fog',
+    condition: "fog",
     url: new URL("../assets/day/fog.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: 'rain',
+    condition: "rain",
     url: new URL("../assets/day/rain.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: 'mist',
+    condition: "mist",
     url: new URL("../assets/day/rain.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: 'snow',
+    condition: "snow",
     url: new URL("../assets/day/snow.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: 'thunderstorm',
+    condition: "thunderstorm",
     url: new URL("../assets/day/storm.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: 'clear',
+    condition: "clear",
     url: new URL("../assets/night/clear.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: 'clouds',
+    condition: "clouds",
     url: new URL("../assets/night/cloudy.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: 'fog',
+    condition: "fog",
     url: new URL("../assets/day/fog.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: 'rain',
+    condition: "rain",
     url: new URL("../assets/day/rain.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: 'mist',
+    condition: "mist",
     url: new URL("../assets/day/rain.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: 'snow',
+    condition: "snow",
     url: new URL("../assets/day/snow.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: 'thunderstorm',
+    condition: "thunderstorm",
     url: new URL("../assets/day/storm.png", import.meta.url).href,
   },
 ];
@@ -75,12 +75,12 @@ export const defaultWeatherOptions = {
   day: {
     day: true,
     url: new URL("../assets/day/default.png", import.meta.url).href,
-    condition: 'unspecified',
+    condition: "unspecified",
   },
   night: {
     day: false,
     url: new URL("../assets/night/default.png", import.meta.url).href,
-    condition: 'unspecified',
+    condition: "unspecified",
   },
 };
 

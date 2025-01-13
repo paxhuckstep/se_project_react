@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 .modal__footer-top {
-display: flex;
+  display: flex;
 }
 
 .modal__delete-button {

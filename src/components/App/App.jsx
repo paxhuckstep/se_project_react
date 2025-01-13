@@ -43,13 +43,14 @@ function App() {
 
   const handleDeleteClick = () => {
     setActiveModal("confirm-delete");
-  }
+  };
 
   const closeActiveModal = () => {
     setActiveModal("");
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+    //api stuff
     setClothingItems((prevItems) => [
       { name, imageUrl, weather },
       ...prevItems,
@@ -57,10 +58,11 @@ function App() {
     closeActiveModal();
   };
 
-  const handleConfirmDeleteModalSubmit = () => {
+  const handleConfirmDeleteModalClick = (card) => {
+    console.log(card);
     //api stuff
     closeActiveModal();
-  }
+  };
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -72,6 +74,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    //api stuff, is working currently
     getItems().then((data) => {
       setClothingItems(data);
     });
@@ -102,6 +105,7 @@ function App() {
                 <Profile
                   onCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  handleAddClick={handleAddClick}
                 />
               }
             />
@@ -121,11 +125,11 @@ function App() {
           isOpen={activeModal === "preview"}
           onDeleteClick={handleDeleteClick}
         />
-        <ConfirmDeleteModal 
-        card={selectedCard}
-        onClose={closeActiveModal}
-        isOpen={activeModal==="confirm-delete"}
-        onSubmit={handleConfirmDeleteModalSubmit}
+        <ConfirmDeleteModal
+          card={selectedCard}
+          onClose={closeActiveModal}
+          isOpen={activeModal === "confirm-delete"}
+          onConfirmClick={handleConfirmDeleteModalClick}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

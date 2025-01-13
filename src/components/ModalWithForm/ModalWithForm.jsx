@@ -1,6 +1,13 @@
 import "./ModalWithForm.css";
 
-function ModalWithForm({ children, buttonText, title, isOpen, onClose, onSubmit }) {
+function ModalWithForm({
+  children,
+  buttonText,
+  title,
+  isOpen,
+  onClose,
+  onSubmit,
+}) {
   if (!isOpen) {
     return null;
   }
