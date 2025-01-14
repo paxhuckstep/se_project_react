@@ -27,10 +27,15 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [update, setUpdate] = useState(0);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
+
+  const loadUpdate = () => {
+    update === 0 ? setUpdate(1) : setUpdate(0); 
+  }
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -60,12 +65,14 @@ function App() {
       ]);
     });
     closeActiveModal();
+ 
   };
 
   const handleConfirmDeleteModalClick = (card) => {
     console.log(card._id);
     //api stuff
     deleteItem(card._id).then(closeActiveModal()).catch(console.error);
+    loadUpdate();
   };
 
   useEffect(() => {
@@ -82,7 +89,7 @@ function App() {
     getItems().then((data) => {
       setClothingItems(data);
     });
-  }, []);
+  }, [update]);
 
   return (
     <CurrentTemperatureUnitContext.Provider
