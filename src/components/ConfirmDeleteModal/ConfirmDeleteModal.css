@@ -38,6 +38,12 @@
   font-weight: 700;
 }
 
+.modal__buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .modal__confirmed:hover {
   cursor: pointer;
 }

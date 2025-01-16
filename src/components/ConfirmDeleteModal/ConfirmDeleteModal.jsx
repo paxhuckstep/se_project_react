@@ -18,7 +18,7 @@ function ConfirmDeleteModal({ card, isOpen, onClose, onConfirmClick }) {
           type="button"
           className="modal__close modal__close_form"
         />
-        <form className="modal__form">
+        <div className="modal__buttons">
           <button
             onClick={() => {
               onConfirmClick(card);
@@ -31,7 +31,7 @@ function ConfirmDeleteModal({ card, isOpen, onClose, onConfirmClick }) {
           <button onClick={onClose} className="modal__cancel">
             Cancel
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );

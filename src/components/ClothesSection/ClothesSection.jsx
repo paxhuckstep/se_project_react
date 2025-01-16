@@ -3,7 +3,6 @@ import "./ClothesSection.css";
 import ItemCard from "../ItemCard/ItemCard";
 
 function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
-  // const clothingItems = defaultClothingItems;
   return (
     <div className="clothes-section">
       <div className="clothes-section__top">

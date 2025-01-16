@@ -10,7 +10,6 @@ import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import AddItemModal from "../AddItemModal/AddItemModal";
-// import { defaultClothingItems } from "../../utils/constants";
 import { deleteItem, getItems, addItem } from "../../utils/api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
 
@@ -27,15 +26,15 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [update, setUpdate] = useState(0);
+  const [formReset, setFormReset] = useState(0)
+
+  const sendFormReset = () => {
+  formReset === 0 ? setFormReset(1) : setFormReset(0); 
+  }
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
-
-  const loadUpdate = () => {
-    update === 0 ? setUpdate(1) : setUpdate(0); 
-  }
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -54,25 +53,48 @@ function App() {
     setActiveModal("");
   };
 
+  useEffect(() => {
+    if (!activeModal) return; // stop the effect not to add the listener if there is no active modal
+    // shouldn't this^ be "if (activeModal === "") return;" how does !activeModal work?
+
+    const handleEscClose = (e) => {
+      // define the function inside useEffect not to lose the reference on rerendering
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      // don't forget to add a clean up function for removing the listener
+
+      //wouldn't this go inside of handleEscClose? Like it removes the listener once the Modal is closed???
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]); // watch activeModal here
+
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    const newId = Math.max(...clothingItems.map((item) => item._id)) + 1;
-    //api stuff
-    console.log(">>>", newId);
-    addItem({ name, imageUrl, weather }).then(() => {
-      setClothingItems((prevItems) => [
-        { name, imageUrl, weather },
-        ...prevItems,
-      ]);
-    });
-    closeActiveModal();
- 
+    addItem({ name, imageUrl, weather })
+      .then(() => {
+        setClothingItems((prevItems) => [
+          { name, imageUrl, weather },
+          ...prevItems,
+        ]);
+        closeActiveModal();
+        sendFormReset();
+      })
+      .catch(console.error);
   };
 
   const handleConfirmDeleteModalClick = (card) => {
-    console.log(card._id);
-    //api stuff
-    deleteItem(card._id).then(closeActiveModal()).catch(console.error);
-    loadUpdate();
+    deleteItem(card._id).then(() => {closeActiveModal()
+      setClothingItems(clothingItems.filter((item) => {
+        console.log(item._id, card._id, item._id != card._id)
+        return item._id != card._id
+      }));
+     
+    }).catch(console.error);
   };
 
   useEffect(() => {
@@ -85,11 +107,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    //api stuff, is working currently
     getItems().then((data) => {
       setClothingItems(data);
-    });
-  }, [update]);
+    }).catch(console.error);
+  }, []);
 
   return (
     <CurrentTemperatureUnitContext.Provider
@@ -128,6 +149,7 @@ function App() {
           onClose={closeActiveModal}
           isOpen={activeModal === "add-garment"}
           onAddItemModalSubmit={handleAddItemModalSubmit}
+          formReset={formReset}
         ></AddItemModal>
 
         <ItemModal

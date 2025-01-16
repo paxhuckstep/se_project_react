@@ -1,21 +1,20 @@
 const baseUrl = "http://localhost:3001";
 
-// function handleServerResponse(res) {
-//   if (res.ok) {
-//     return res.json();
-//   } else return Promise.reject(console.error);
-// }
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Error ${res.status}`);
+}
 
-//   function getItems() {
-//     return fetch(`${baseUrl}/items`).then((res) => {handleServerResponse(res)});
-//   }
-// ---------------------------------------------------------------------
+//return res.ok ? res.json() : Promise.reject(console.error);
+
 function getItems() {
   return fetch(`${baseUrl}/items`).then((res) => {
-    return res.ok ? res.json() : Promise.reject(console.error);
+    return checkResponse(res);
   });
 }
-//------------------
+
 function addItem({ name, imageUrl, weather }) {
   console.log("API", name);
   return fetch(`${baseUrl}/items`, {
@@ -29,17 +28,15 @@ function addItem({ name, imageUrl, weather }) {
       imageUrl: imageUrl,
     }),
   }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(console.error);
+    return checkResponse(res);
   });
 }
 
 function deleteItem(itemID) {
-  //pass in itemID ??
   return fetch(`${baseUrl}/items/${itemID}`, {
-    // items/itemID, does this go to the right item?
     method: "DELETE",
   }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(console.error);
+    return checkResponse(res);
   });
 }
 
