@@ -26,11 +26,11 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [formReset, setFormReset] = useState(0)
+  const [formReset, setFormReset] = useState(0);
 
   const sendFormReset = () => {
-  formReset === 0 ? setFormReset(1) : setFormReset(0); 
-  }
+    formReset === 0 ? setFormReset(1) : setFormReset(0);
+  };
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -39,6 +39,7 @@ function App() {
   const handleCardClick = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
+    // console.log(card);
   };
 
   const handleAddClick = () => {
@@ -76,11 +77,9 @@ function App() {
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     addItem({ name, imageUrl, weather })
-      .then(() => {
-        setClothingItems((prevItems) => [
-          { name, imageUrl, weather },
-          ...prevItems,
-        ]);
+      .then((newItem) => {
+        console.log(newItem);
+        setClothingItems((prevItems) => [newItem, ...prevItems]);
         closeActiveModal();
         sendFormReset();
       })
@@ -88,13 +87,17 @@ function App() {
   };
 
   const handleConfirmDeleteModalClick = (card) => {
-    deleteItem(card._id).then(() => {closeActiveModal()
-      setClothingItems(clothingItems.filter((item) => {
-        console.log(item._id, card._id, item._id != card._id)
-        return item._id != card._id
-      }));
-     
-    }).catch(console.error);
+    deleteItem(card._id)
+      .then(() => {
+        closeActiveModal();
+        setClothingItems(
+          clothingItems.filter((item) => {
+            // console.log(item._id, card._id, item._id != card._id);
+            return item._id != card._id;
+          })
+        );
+      })
+      .catch(console.error);
   };
 
   useEffect(() => {
@@ -107,9 +110,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getItems().then((data) => {
-      setClothingItems(data);
-    }).catch(console.error);
+    getItems()
+      .then((data) => {
+        setClothingItems(data);
+      })
+      .catch(console.error);
   }, []);
 
   return (

@@ -19,16 +19,16 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit, formReset }) {
   };
 
   const handleSubmit = (e) => {
-    console.log(e.target); //is a from
+    console.log(e.target); //is a form
     e.preventDefault();
-    onAddItemModalSubmit({ name, imageUrl, weather })
+    onAddItemModalSubmit({ name, imageUrl, weather });
   };
 
   useEffect(() => {
-   setName("");
+    setName("");
     setImageUrl("");
     setWeather("");
-  }, [formReset])
+  }, [formReset]);
 
   return (
     <ModalWithForm

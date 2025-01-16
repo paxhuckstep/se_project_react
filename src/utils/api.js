@@ -16,7 +16,7 @@ function getItems() {
 }
 
 function addItem({ name, imageUrl, weather }) {
-  console.log("API", name);
+  // console.log("API", name);
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
