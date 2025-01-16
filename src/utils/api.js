@@ -7,16 +7,11 @@ function checkResponse(res) {
   return Promise.reject(`Error ${res.status}`);
 }
 
-//return res.ok ? res.json() : Promise.reject(console.error);
-
 function getItems() {
-  return fetch(`${baseUrl}/items`).then((res) => {
-    return checkResponse(res);
-  });
+  return fetch(`${baseUrl}/items`).then(checkResponse);
 }
 
 function addItem({ name, imageUrl, weather }) {
-  // console.log("API", name);
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
@@ -27,17 +22,13 @@ function addItem({ name, imageUrl, weather }) {
       weather: weather,
       imageUrl: imageUrl,
     }),
-  }).then((res) => {
-    return checkResponse(res);
-  });
+  }).then(checkResponse);
 }
 
 function deleteItem(itemID) {
   return fetch(`${baseUrl}/items/${itemID}`, {
     method: "DELETE",
-  }).then((res) => {
-    return checkResponse(res);
-  });
+  }).then(checkResponse);
 }
 
 export { getItems, addItem, deleteItem };

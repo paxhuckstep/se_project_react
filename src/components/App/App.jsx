@@ -26,11 +26,6 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [formReset, setFormReset] = useState(0);
-
-  const sendFormReset = () => {
-    formReset === 0 ? setFormReset(1) : setFormReset(0);
-  };
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -39,7 +34,6 @@ function App() {
   const handleCardClick = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
-    // console.log(card);
   };
 
   const handleAddClick = () => {
@@ -54,34 +48,30 @@ function App() {
     setActiveModal("");
   };
 
-  // useEffect(() => {
-  //   if (!activeModal) return; // stop the effect not to add the listener if there is no active modal
-  //   // shouldn't this^ be "if (activeModal === "") return;" how does !activeModal work?
+  useEffect(() => {
+    if (!activeModal) return;
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
 
-  //   const handleEscClose = (e) => {
-  //     // define the function inside useEffect not to lose the reference on rerendering
-  //     if (e.key === "Escape") {
-  //       closeActiveModal();
-  //     }
-  //   };
+    document.addEventListener("keydown", handleEscClose);
 
-  //   document.addEventListener("keydown", handleEscClose);
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
-  //   return () => {
-  //     // don't forget to add a clean up function for removing the listener
-
-  //     //wouldn't this go inside of handleEscClose? Like it removes the listener once the Modal is closed???
-  //     document.removeEventListener("keydown", handleEscClose);
-  //   };
-  // }, [activeModal]); // watch activeModal here
-
-  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+  const handleAddItemModalSubmit = (
+    { name, imageUrl, weather },
+    resetValues
+  ) => {
     addItem({ name, imageUrl, weather })
       .then((newItem) => {
-        console.log(newItem);
         setClothingItems((prevItems) => [newItem, ...prevItems]);
         closeActiveModal();
-        sendFormReset();
+        resetValues();
       })
       .catch(console.error);
   };
@@ -92,7 +82,6 @@ function App() {
         closeActiveModal();
         setClothingItems(
           clothingItems.filter((item) => {
-            // console.log(item._id, card._id, item._id != card._id);
             return item._id != card._id;
           })
         );
@@ -154,7 +143,6 @@ function App() {
           onClose={closeActiveModal}
           isOpen={activeModal === "add-garment"}
           onAddItemModalSubmit={handleAddItemModalSubmit}
-          formReset={formReset}
         ></AddItemModal>
 
         <ItemModal

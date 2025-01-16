@@ -1,5 +1,4 @@
 import "./ItemModal.css";
-// import "../App/Modal.css";
 
 function ItemModal({ onClose, card, isOpen, onDeleteClick }) {
   if (!isOpen) {
