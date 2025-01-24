@@ -25,8 +25,8 @@ function addItem({ name, imageUrl, weather }) {
   }).then(checkResponse);
 }
 
-function deleteItem(itemID) {
-  return fetch(`${baseUrl}/items/${itemID}`, {
+function deleteItem(itemId) {
+  return fetch(`${baseUrl}/items/${itemId}`, {
     method: "DELETE",
   }).then(checkResponse);
 }
