@@ -12,6 +12,8 @@ import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { deleteItem, getItems, addItem } from "../../utils/api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -26,6 +28,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -43,6 +46,14 @@ function App() {
   const handleDeleteClick = () => {
     setActiveModal("confirm-delete");
   };
+
+  const handleRegisterClick = () => {
+    setActiveModal("register");
+  }
+
+  const handleSignInClick = () => {
+    setActiveModal("sign-in")
+  }
 
   const closeActiveModal = () => {
     setActiveModal("");
@@ -75,6 +86,13 @@ function App() {
       })
       .catch(console.error);
   };
+
+  const handleSignInSubmit = ({username, password}) => {
+    // api sign in stuff
+   // .then(setIsLoggedIn(true)).catch(console.err)
+   setIsLoggedIn(true);
+   closeActiveModal();
+  }
 
   const handleConfirmDeleteModalClick = (card) => {
     deleteItem(card._id)
@@ -112,7 +130,7 @@ function App() {
     >
       <div className="page">
         <div className="page__content">
-          <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+          <Header handleAddClick={handleAddClick} weatherData={weatherData} isLoggedIn={isLoggedIn} handleRegisterClick={handleRegisterClick} handleSignInClick={handleSignInClick} />
 
           <Routes>
             <Route
@@ -157,6 +175,13 @@ function App() {
           isOpen={activeModal === "confirm-delete"}
           onConfirmClick={handleConfirmDeleteModalClick}
         />
+        <RegisterModal
+        onClose={closeActiveModal}
+        isOpen={activeModal === "register"} />
+             <LoginModal
+        onClose={closeActiveModal}
+        isOpen={activeModal === "sign-in"}
+        onSignInSubmit={handleSignInSubmit} />
       </div>
     </CurrentTemperatureUnitContext.Provider>
   );
