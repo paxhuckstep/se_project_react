@@ -14,6 +14,7 @@ import { deleteItem, getItems, addItem } from "../../utils/api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
+import { getToken, setToken} from "../../utils/token"
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -29,6 +30,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({ username: "", email: "" });
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -49,30 +51,48 @@ function App() {
 
   const handleRegisterClick = () => {
     setActiveModal("register");
-  }
+  };
 
   const handleSignInClick = () => {
-    setActiveModal("sign-in")
-  }
+    setActiveModal("sign-in");
+  };
 
   const closeActiveModal = () => {
     setActiveModal("");
   };
 
-  useEffect(() => {
-    if (!activeModal) return;
-    const handleEscClose = (e) => {
-      if (e.key === "Escape") {
-        closeActiveModal();
+  const handleRegistration = ({
+    name,
+    avatar,
+    email,
+    password,
+    confirmPassword,
+  }, resetValues ) => {
+    if (password === confirmPassword) {
+      auth
+        .register(name, avatar, email, password)
+        .then(() => {
+          navigate("/login"); //wrong fix later
+          resetValues();
+        })
+        .catch(console.error);
+    }
+  };
+
+  const handleLogin = ({ email, password }) => {
+    if(!email || !password) {
+      return;
+    }
+    auth.authorize(email, password).then((data) => {
+      if (data.jwt) { // so .jwt is coming from the useEfect down below ??
+setToken(data.jwt);
+setUserData(data.user);
+setIsLoggedIn(true);
+//redirect maybe ?? I might be handling this already idk
       }
-    };
+    }).catch(console.error);
+  };
 
-    document.addEventListener("keydown", handleEscClose);
-
-    return () => {
-      document.removeEventListener("keydown", handleEscClose);
-    };
-  }, [activeModal]);
 
   const handleAddItemModalSubmit = (
     { name, imageUrl, weather },
@@ -86,13 +106,6 @@ function App() {
       })
       .catch(console.error);
   };
-
-  const handleSignInSubmit = ({username, password}) => {
-    // api sign in stuff
-   // .then(setIsLoggedIn(true)).catch(console.err)
-   setIsLoggedIn(true);
-   closeActiveModal();
-  }
 
   const handleConfirmDeleteModalClick = (card) => {
     deleteItem(card._id)
@@ -124,13 +137,50 @@ function App() {
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    const jwt = getToken();
+    if (!jwt) {
+      return;
+    }
+  
+    api //api.stuff isnt a thing yet
+    .getUserInfo(jwt)
+    .then(({ username, email }) => {
+      setIsLoggedIn(true);
+      setUserData({ username, email });
+    })
+    .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    if (!activeModal) return;
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
+
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
       <div className="page">
         <div className="page__content">
-          <Header handleAddClick={handleAddClick} weatherData={weatherData} isLoggedIn={isLoggedIn} handleRegisterClick={handleRegisterClick} handleSignInClick={handleSignInClick} />
+          <Header
+            handleAddClick={handleAddClick}
+            weatherData={weatherData}
+            isLoggedIn={isLoggedIn}
+            handleRegisterClick={handleRegisterClick}
+            handleSignInClick={handleSignInClick}
+          />
 
           <Routes>
             <Route
@@ -176,12 +226,15 @@ function App() {
           onConfirmClick={handleConfirmDeleteModalClick}
         />
         <RegisterModal
-        onClose={closeActiveModal}
-        isOpen={activeModal === "register"} />
-             <LoginModal
-        onClose={closeActiveModal}
-        isOpen={activeModal === "sign-in"}
-        onSignInSubmit={handleSignInSubmit} />
+          onClose={closeActiveModal}
+          isOpen={activeModal === "register"}
+          onRegisterSubmit={handleRegistration}
+        />
+        <LoginModal
+          onClose={closeActiveModal}
+          isOpen={activeModal === "sign-in"}
+          handleLogin={handleLogin}
+        />
       </div>
     </CurrentTemperatureUnitContext.Provider>
   );

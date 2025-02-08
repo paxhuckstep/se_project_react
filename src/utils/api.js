@@ -31,4 +31,4 @@ function deleteItem(itemId) {
   }).then(checkResponse);
 }
 
-export { getItems, addItem, deleteItem };
+export { getItems, addItem, deleteItem, baseUrl };

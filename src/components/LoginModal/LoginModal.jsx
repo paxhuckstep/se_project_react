@@ -1,26 +1,25 @@
 import "./LoginModal.css";
-import "../ModalWithForm/ModalWithForm.css"
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
 
 
-function LoginModal({isOpen, onClose, onSignInSubmit
+function LoginModal({isOpen, onClose, handleLogin
 }) {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSignInSubmit({ username, password }, resetValues);
+        handleLogin({ email, password });
       };
-   const handleUsernameChange = (e) => {
-        setUsername(e.target.value);
+   const handleEmailChange = (e) => {
+        setEmail(e.target.value);
       }
       const handlePasswordChange = (e) => {
         setPassword(e.target.value)
       }
     const resetValues = () => {
-        setUsername("");
+        setEmail("");
         setPassword("");
     }
 
@@ -36,19 +35,18 @@ function LoginModal({isOpen, onClose, onSignInSubmit
     isOpen={isOpen}
     onSubmit={handleSubmit}
   >
-    <label htmlFor="username" className="modal__label">
-      username
+    <label htmlFor="email" className="modal__label">
+      E-mail
       <input
-        type="text"
-        name="username"
+        type="email"
+        name="email"
         className="modal__input"
-        id="username"
-        placeholder="username"
+        id="login-email"
+        placeholder="email"
         minLength="1"
-        maxLength="30"
         required
-        onChange={handleUsernameChange}
-        value={username}
+        onChange={handleEmailChange}
+        value={email}
       />
     </label>
     <label htmlFor="password" className="modal__label">
@@ -56,7 +54,7 @@ function LoginModal({isOpen, onClose, onSignInSubmit
       <input
         type="text"
         name="password"
-        className="modal__input"
+        className="modal__input modal__input_last"
         id="password"
         placeholder="Password"
         minLength="2"
