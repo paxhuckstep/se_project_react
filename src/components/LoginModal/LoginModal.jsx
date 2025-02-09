@@ -18,10 +18,10 @@ function LoginModal({isOpen, onClose, handleLogin
       const handlePasswordChange = (e) => {
         setPassword(e.target.value)
       }
-    const resetValues = () => {
-        setEmail("");
-        setPassword("");
-    }
+    // const resetValues = () => {
+    //     setEmail("");
+    //     setPassword("");
+    // }
 
   if (!isOpen) {
     return null;

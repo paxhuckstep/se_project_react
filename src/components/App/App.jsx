@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext  from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { coordinates, APIkey } from "../../utils/constants";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -30,7 +31,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({ username: "", email: "" });
+  const [currentUser, setCurrentUser] = useState({ username: "", email: "" });
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -86,7 +87,7 @@ function App() {
     auth.authorize(email, password).then((data) => {
       if (data.jwt) { // so .jwt is coming from the useEfect down below ??
 setToken(data.jwt);
-setUserData(data.user);
+setCurrentUser(data.user);
 setIsLoggedIn(true);
 //redirect maybe ?? I might be handling this already idk
       }
@@ -147,7 +148,7 @@ setIsLoggedIn(true);
     .getUserInfo(jwt)
     .then(({ username, email }) => {
       setIsLoggedIn(true);
-      setUserData({ username, email });
+      setCurrentUser({ username, email });
     })
     .catch(console.error);
   }, []);
@@ -172,6 +173,7 @@ setIsLoggedIn(true);
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
+      <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__content">
           <Header
@@ -236,6 +238,7 @@ setIsLoggedIn(true);
           handleLogin={handleLogin}
         />
       </div>
+      </CurrentUserContext.Provider>
     </CurrentTemperatureUnitContext.Provider>
   );
 }
