@@ -1,5 +1,15 @@
 .sidebar {
   display: flex;
+  flex-direction: column;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+}
+
+.sidebar__top {
+  display: flex;
+  flex-direction: row;
 }
 .sidebar__avatar {
   margin-left: 0;
@@ -10,9 +20,16 @@
 }
 
 .sidebar__username {
-  font-family: "Cabinet Grotesk", sans-serif;
-  font-weight: 700;
-  size: 20px;
-  line-height: 25px;
+
   /* width: 125px; */
+}
+
+.sidebar__button {
+  border: none;
+  justify-content: flex-start;
+  padding: 0;
+  margin-top: 8px;
+  margin-right: auto;
+  font-weight: 700; 
+  /* wasn't inheriting ^^^ from sidebar?? */
 }

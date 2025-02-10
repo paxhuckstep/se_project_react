@@ -23,6 +23,7 @@
   font-size: 20px;
   line-height: 24px;
   font-family: "Cabinet Grotesk", sans-serif;
+  padding: 0;
 }
 
 .header__user-container {

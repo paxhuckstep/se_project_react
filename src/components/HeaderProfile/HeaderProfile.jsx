@@ -15,10 +15,10 @@ function HeaderProfile({ isLoggedin, handleRegisterClick, handleSignInClick }) {
     );
   } else {
     return (
-      <div className="header__user-container">
-        <button onClick={handleSignInClick} className="headerprofile__button-login">Login</button>
-        <button onClick={handleRegisterClick} className="headerprofile__button-register">Register</button>
-      </div>
+<div>
+          <button onClick={handleRegisterClick} className="header-profile__button">Sign Up</button>
+        <button onClick={handleSignInClick} className="header-profile__button header-profile__button_login">Log In</button>
+        </div>
     );
   }
 }

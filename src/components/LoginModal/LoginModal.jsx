@@ -3,14 +3,14 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
 
 
-function LoginModal({isOpen, onClose, handleLogin
+function LoginModal({isOpen, onClose, handleLogIn
 }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleLogin({ email, password });
+        handleLogIn({ email, password });
       };
    const handleEmailChange = (e) => {
         setEmail(e.target.value);

@@ -31,4 +31,29 @@ function deleteItem(itemId) {
   }).then(checkResponse);
 }
 
-export { getItems, addItem, deleteItem, baseUrl };
+function getCurrentUser(token) {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "GET",
+    headers: {
+      // Accept: "application/json",
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ token }),
+  }).then(checkResponse);
+};
+
+function editCurrentUser({name, avatar}) {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({newName: name,
+      newAvatar: avatar,
+    }),
+  }).then(checkResponse);
+}
+
+export default { getItems, addItem, deleteItem, getCurrentUser, editCurrentUser, baseUrl };

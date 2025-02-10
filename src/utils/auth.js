@@ -28,16 +28,3 @@ export const authorize = (email, password) => {
     });
   };
 
-  export const checkTokenValid = (token) => {
-    return fetch(`${baseUrl}/users/me`, {
-      method: "GET",
-      headers: {
-        // Accept: "application/json",
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ token }),
-    }).then((res) => {
-      return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-    });
-  };

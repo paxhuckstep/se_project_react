@@ -1,0 +1,13 @@
+.header-profile__button {
+    border: none;
+    font-family: "cabinet Grotesk", sans-serif;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+}
+
+.header-profile__button_login {
+    margin-left: 20px;
+}
