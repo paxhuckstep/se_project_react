@@ -15,7 +15,6 @@ import {
   getItems,
   addItem,
   deleteItem,
-  getCurrentUser,
   editCurrentUser,
 } from "../../utils/api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
@@ -40,6 +39,7 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: "", avatar: "" });
+  // console.log(currentUser);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -81,26 +81,33 @@ function App() {
     if (password === confirmPassword) {
       auth
         .register(name, avatar, email, password)
-        .then((user) => {
-          setCurrentUser({ name: user.name, avatar: user.avatar });
+        .then(() => {
+          setCurrentUser({ name, avatar });
           resetValues();
         })
         .catch(console.error);
     }
   };
 
-  const handleLogIn = ({ email, password }) => {
+  const handleLogIn = ({ email, password }, resetValues) => {
+    console.log("handleLogIn ran");
+    console.log(email, password);
     if (!email || !password) {
       return;
     }
     auth
       .authorize(email, password)
       .then((data) => {
-        if (data.jwt) {
-          setToken(data.jwt);
-          setCurrentUser(data.user);
+        if (data.token) {
+          setToken(data.token);
           setIsLoggedIn(true);
-          closeActiveModal();
+       
+          auth.getCurrentUser(data.token).then(({name, avatar}) => {
+            setCurrentUser(name, avatar);
+            // console.log(currentUser);
+            resetValues();
+               closeActiveModal();
+          }).catch(console.error);
         }
       })
       .catch(console.error);
@@ -169,13 +176,16 @@ function App() {
     if (!jwt) {
       return;
     }
-    getCurrentUser(jwt)
-      .then(({ name, email }) => {
+    auth
+      .getCurrentUser(jwt)
+      .then(({ name, avatar }) => {
         setIsLoggedIn(true);
-        setCurrentUser({ name, email });
+        setCurrentUser({name, avatar});
       })
       .catch(console.error);
   }, []);
+
+  console.log(currentUser);
 
   useEffect(() => {
     if (!activeModal) return;

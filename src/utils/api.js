@@ -15,6 +15,7 @@ function addItem({ name, imageUrl, weather }) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -31,29 +32,17 @@ function deleteItem(itemId) {
   }).then(checkResponse);
 }
 
-function getCurrentUser(token) {
-  return fetch(`${baseUrl}/users/me`, {
-    method: "GET",
-    headers: {
-      // Accept: "application/json",
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ token }),
-  }).then(checkResponse);
-};
 
-function editCurrentUser({name, avatar}) {
+
+function editCurrentUser({ name, avatar }) {
   return fetch(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({newName: name,
-      newAvatar: avatar,
-    }),
+    body: JSON.stringify({ newName: name, newAvatar: avatar }),
   }).then(checkResponse);
 }
 
-export default { getItems, addItem, deleteItem, getCurrentUser, editCurrentUser, baseUrl };
+export { getItems, addItem, deleteItem, editCurrentUser };

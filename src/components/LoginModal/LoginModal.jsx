@@ -10,7 +10,7 @@ function LoginModal({isOpen, onClose, handleLogIn
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleLogIn({ email, password });
+        handleLogIn({ email, password }, resetValues);
       };
    const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -18,10 +18,10 @@ function LoginModal({isOpen, onClose, handleLogIn
       const handlePasswordChange = (e) => {
         setPassword(e.target.value)
       }
-    // const resetValues = () => {
-    //     setEmail("");
-    //     setPassword("");
-    // }
+    const resetValues = () => {
+        setEmail("");
+        setPassword("");
+    }
 
   if (!isOpen) {
     return null;
