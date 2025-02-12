@@ -108,7 +108,6 @@ function App() {
           auth
             .getCurrentUser(data.token)
             .then(({ name, avatar, _id }) => {
-              console.log(_id);
               setCurrentUser(name, avatar, _id);
               resetValues();
               closeActiveModal();
@@ -141,11 +140,9 @@ function App() {
 
   const handleEditProfileSubmit = ({ name, avatar }) => {
     const token = getToken();
-    console.log("handleEditProfileSubmit ran");
+
     editCurrentUser({ name, avatar }, token)
       .then((res) => {
-        console.log("editCurrentUser responded gooded", name, avatar);
-        console.log("here's the response", res);
         setCurrentUser(res); // does this work regardless?
         closeActiveModal();
       })
@@ -167,7 +164,6 @@ function App() {
   };
 
   const handleCardLike = (card, isLiked) => {
-    console.log(card);
     const { _id } = card;
     const token = getToken();
     !isLiked
