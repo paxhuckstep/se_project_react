@@ -38,8 +38,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({ name: "", avatar: "" });
-  // console.log(currentUser);
+  const [currentUser, setCurrentUser] = useState({ name: "", avatar: "", _id: "" });
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -82,7 +81,7 @@ function App() {
       auth
         .register(name, avatar, email, password)
         .then(() => {
-          setCurrentUser({ name, avatar });
+          setCurrentUser({ name, avatar, _id });
           resetValues();
         })
         .catch(console.error);
@@ -90,8 +89,6 @@ function App() {
   };
 
   const handleLogIn = ({ email, password }, resetValues) => {
-    console.log("handleLogIn ran");
-    console.log(email, password);
     if (!email || !password) {
       return;
     }
@@ -102,9 +99,9 @@ function App() {
           setToken(data.token);
           setIsLoggedIn(true);
        
-          auth.getCurrentUser(data.token).then(({name, avatar}) => {
-            setCurrentUser(name, avatar);
-            // console.log(currentUser);
+          auth.getCurrentUser(data.token).then(({name, avatar, _id}) => {
+            console.log(_id);
+            setCurrentUser(name, avatar, _id);
             resetValues();
                closeActiveModal();
           }).catch(console.error);
@@ -123,7 +120,8 @@ function App() {
     { name, imageUrl, weather },
     resetValues
   ) => {
-    addItem({ name, imageUrl, weather })
+    const token = getToken();
+    addItem({ name, imageUrl, weather, token })
       .then((newItem) => {
         setClothingItems((prevItems) => [newItem, ...prevItems]);
         closeActiveModal();
@@ -135,7 +133,7 @@ function App() {
   const handleEditProfileSubmit = ({ name, avatar }) => {
     editCurrentUser({ name, avatar })
       .then(() => {
-        setCurrentUser(name, avatar);
+        setCurrentUser(name, avatar); // does this work regardless?
         closeActiveModal();
       })
       .catch(console.error);
@@ -178,14 +176,12 @@ function App() {
     }
     auth
       .getCurrentUser(jwt)
-      .then(({ name, avatar }) => {
+      .then(({ name, avatar, _id }) => {
         setIsLoggedIn(true);
-        setCurrentUser({name, avatar});
+        setCurrentUser({name, avatar, _id});
       })
       .catch(console.error);
   }, []);
-
-  console.log(currentUser);
 
   useEffect(() => {
     if (!activeModal) return;

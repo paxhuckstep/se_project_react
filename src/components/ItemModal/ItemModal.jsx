@@ -1,20 +1,17 @@
 import "./ItemModal.css";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
 
 function ItemModal({ onClose, card, isOpen, onDeleteClick }) {
+  const currentUser = useContext(CurrentUserContext);
+  const isOwn = card.owner === currentUser._id;
+  const itemDeleteButtonClassName = `modal__delete-button ${
+    isOwn ? "" : "modal__delete-button_hidden"
+  }`;
+
   if (!isOpen) {
     return null;
   }
-
-
-//   // Checking if the current user is the owner of the current clothing item
-// const isOwn = selectedCard.owner === currentUser._id;
-
-// // Creating a variable which you'll then set in `className` for the delete button
-// const itemDeleteButtonClassName = (
-//   `modal__delete-button ${isOwn ? '' : 'modal__delete-button_hidden'}`
-// );
-
-//what is this and how does it work? ^^^
 
   return (
     <div className="modal">
@@ -29,7 +26,10 @@ function ItemModal({ onClose, card, isOpen, onDeleteClick }) {
           <div className="modal__footer-top">
             {" "}
             <h2 className="modal__caption">{card.name}</h2>
-            <button className="modal__delete-button" onClick={onDeleteClick}>
+            <button
+              className={itemDeleteButtonClassName}
+              onClick={onDeleteClick}
+            >
               Delete Item
             </button>
           </div>
