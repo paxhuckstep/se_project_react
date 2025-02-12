@@ -4,15 +4,14 @@ import { useContext } from "react";
 
 function ItemCard({ item, onCardClick, handleCardLike }) {
   const currentUser = useContext(CurrentUserContext);
-  const isLiked = item.likes.includes(currentUser._id)
+  const isLiked = item.likes.includes(currentUser._id);
+
+  const itemLikeButtonClassName = !isLiked ? "card__like-button-inactive" : "card__like-button-active" ;
 
   const handleCardClick = () => {
     onCardClick(item);
 
   };
-
-  // get currentUser from User Context
-  // const isLiked = if current user's id is in the array of likes item.likes.includes
 
   const onCardLike =() => {
     handleCardLike(item, isLiked);
@@ -23,7 +22,7 @@ function ItemCard({ item, onCardClick, handleCardLike }) {
     <li className="card">
       <div className="card__header">
         <h2 className="card__name">{item.name}</h2>
-        <button onClick={onCardLike} className="card__like-button"></button>
+        <button onClick={onCardLike} className={itemLikeButtonClassName}></button>
       </div>
       <img
         onClick={handleCardClick}
