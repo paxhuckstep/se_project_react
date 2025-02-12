@@ -40,7 +40,11 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({ name: "", avatar: "", _id: "" });
+  const [currentUser, setCurrentUser] = useState({
+    name: "",
+    avatar: "",
+    _id: "",
+  });
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -83,7 +87,7 @@ function App() {
       auth
         .register(name, avatar, email, password)
         .then((res) => {
-          setCurrentUser( res.name, res.avatar, res._id);
+          setCurrentUser(res.name, res.avatar, res._id);
           resetValues();
         })
         .catch(console.error);
@@ -100,13 +104,16 @@ function App() {
         if (data.token) {
           setToken(data.token);
           setIsLoggedIn(true);
-       
-          auth.getCurrentUser(data.token).then(({name, avatar, _id}) => {
-            console.log(_id);
-            setCurrentUser(name, avatar, _id);
-            resetValues();
-               closeActiveModal();
-          }).catch(console.error);
+
+          auth
+            .getCurrentUser(data.token)
+            .then(({ name, avatar, _id }) => {
+              console.log(_id);
+              setCurrentUser(name, avatar, _id);
+              resetValues();
+              closeActiveModal();
+            })
+            .catch(console.error);
         }
       })
       .catch(console.error);
@@ -134,12 +141,12 @@ function App() {
 
   const handleEditProfileSubmit = ({ name, avatar }) => {
     const token = getToken();
-    console.log("handleEditProfileSubmit ran")
+    console.log("handleEditProfileSubmit ran");
     editCurrentUser({ name, avatar }, token)
       .then((res) => {
-        console.log("editCurrentUser responded gooded", name, avatar)
+        console.log("editCurrentUser responded gooded", name, avatar);
         console.log("here's the response", res);
-        setCurrentUser(name, avatar); // does this work regardless?
+        setCurrentUser(res); // does this work regardless?
         closeActiveModal();
       })
       .catch(console.error);
@@ -159,24 +166,19 @@ function App() {
       .catch(console.error);
   };
 
-  const handleCardLike = (card) => {
+  const handleCardLike = (card, isLiked) => {
     console.log(card);
-   const {_id, isLiked} = card;
-    const token = getItem();
+    const { _id } = card;
+    const token = getToken();
     !isLiked
-      ? // if so, send a request to add the user's id to the card's likes array
-        
-          // the first argument is the card's id
-          addCardLike(_id, token)
+      ? addCardLike(_id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === _id ? updatedCard : item))
             );
           })
           .catch((err) => console.log(err))
-      : // if not, send a request to remove the user's id from the card's likes array
-          // the first argument is the card's id
-          removeCardLike(_id, token) 
+      : removeCardLike(_id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === _id ? updatedCard : item))
@@ -211,7 +213,7 @@ function App() {
       .getCurrentUser(jwt)
       .then(({ name, avatar, _id }) => {
         setIsLoggedIn(true);
-        setCurrentUser({name, avatar, _id});
+        setCurrentUser({ name, avatar, _id });
       })
       .catch(console.error);
   }, []);
