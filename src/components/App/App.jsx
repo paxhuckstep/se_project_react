@@ -80,8 +80,8 @@ function App() {
     if (password === confirmPassword) {
       auth
         .register(name, avatar, email, password)
-        .then(() => {
-          setCurrentUser({ name, avatar, _id });
+        .then((res) => {
+          setCurrentUser( res.name, res.avatar, res._id);
           resetValues();
         })
         .catch(console.error);
@@ -131,8 +131,12 @@ function App() {
   };
 
   const handleEditProfileSubmit = ({ name, avatar }) => {
-    editCurrentUser({ name, avatar })
-      .then(() => {
+    const token = getToken();
+    console.log("handleEditProfileSubmit ran")
+    editCurrentUser({ name, avatar }, token)
+      .then((res) => {
+        console.log("editCurrentUser responded gooded", name, avatar)
+        console.log("here's the response", res);
         setCurrentUser(name, avatar); // does this work regardless?
         closeActiveModal();
       })
@@ -140,7 +144,8 @@ function App() {
   };
 
   const handleConfirmDeleteModalClick = (card) => {
-    deleteItem(card._id)
+    const token = getToken();
+    deleteItem(card._id, token)
       .then(() => {
         closeActiveModal();
         setClothingItems(

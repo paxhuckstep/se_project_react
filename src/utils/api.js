@@ -17,7 +17,7 @@ function addItem({ name, imageUrl, weather, token }) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "authorization": `Bearer ${token}`
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       name: name,
@@ -27,15 +27,16 @@ function addItem({ name, imageUrl, weather, token }) {
   }).then(checkResponse);
 }
 
-function deleteItem(itemId) {
+function deleteItem(itemId, token) {
   return fetch(`${baseUrl}/items/${itemId}`, {
     method: "DELETE",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
   }).then(checkResponse);
 }
 
-
-
-function editCurrentUser({ name, avatar }) {
+function editCurrentUser({ name, avatar }, token) {
   return fetch(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: {
