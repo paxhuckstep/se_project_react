@@ -11,17 +11,31 @@
   overflow: hidden;
 }
 
+.card__header {
+  position: absolute;
+  top: 15px;
+  padding: 2px 11px;
+  width: max-content;
+  display: flex;
+  flex-direction: row;
+}
+
 .card__name {
   background-color: #fff;
-  padding: 2px 11px;
-  position: absolute;
   margin: 0;
-  top: 15px;
   border-radius: 4px;
   font-family: "Cabinet Grotesk", sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
+}
+
+.card__like-button {
+  background: transparent url("../../assets/likeButton.png") center no-repeat;
+  width: 20px;
+  height: 15px;
+  border: none;
+  margin: 3px 0 0 10px;
 }
 
 .card__image {

@@ -15,6 +15,8 @@ import {
   getItems,
   addItem,
   deleteItem,
+  addCardLike,
+  removeCardLike,
   editCurrentUser,
 } from "../../utils/api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
@@ -157,6 +159,32 @@ function App() {
       .catch(console.error);
   };
 
+  const handleCardLike = (card) => {
+    console.log(card);
+   const {_id, isLiked} = card;
+    const token = getItem();
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        
+          // the first argument is the card's id
+          addCardLike(_id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === _id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+          // the first argument is the card's id
+          removeCardLike(_id, token) 
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === _id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -226,6 +254,7 @@ function App() {
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    handleCardLike={handleCardLike}
                   />
                 }
               />

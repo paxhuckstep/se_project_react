@@ -36,6 +36,24 @@ function deleteItem(itemId, token) {
   }).then(checkResponse);
 }
 
+function addCardLike(itemId, token) {
+  return fetch(`${baseUrl}/items/${itemId}/likes`, {
+    method: "PUT",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}
+
+function removeCardLike(itemId, token) {
+  return fetch(`${baseUrl}/items/${itemId}/likes`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+}).then(checkResponse);
+}
+
 function editCurrentUser({ name, avatar }, token) {
   return fetch(`${baseUrl}/users/me`, {
     method: "PATCH",
@@ -47,4 +65,4 @@ function editCurrentUser({ name, avatar }, token) {
   }).then(checkResponse);
 }
 
-export { getItems, addItem, deleteItem, editCurrentUser };
+export { getItems, addItem, deleteItem, addCardLike, removeCardLike, editCurrentUser };
