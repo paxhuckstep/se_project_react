@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { coordinates, APIkey } from "../../utils/constants";
@@ -45,6 +45,7 @@ function App() {
     avatar: "",
     _id: "",
   });
+  const navigate = useNavigate();
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -86,9 +87,11 @@ function App() {
     if (password === confirmPassword) {
       auth
         .register(name, avatar, email, password)
-        .then((res) => {
-          setCurrentUser(res.name, res.avatar, res._id);
+        .then((userData) => {
+          setCurrentUser(userData);
+          setIsLoggedIn(true);
           resetValues();
+          closeActiveModal();
         })
         .catch(console.error);
     }
@@ -104,11 +107,10 @@ function App() {
         if (data.token) {
           setToken(data.token);
           setIsLoggedIn(true);
-
           auth
             .getCurrentUser(data.token)
-            .then(({ name, avatar, _id }) => {
-              setCurrentUser(name, avatar, _id);
+            .then((userData) => {
+              setCurrentUser(userData);
               resetValues();
               closeActiveModal();
             })
@@ -121,7 +123,7 @@ function App() {
   const handleLogOut = () => {
     removeToken();
     setIsLoggedIn(false);
-    // navigate to home page??
+    navigate("/");
   };
 
   const handleAddItemModalSubmit = (
@@ -131,7 +133,7 @@ function App() {
     const token = getToken();
     addItem({ name, imageUrl, weather, token })
       .then((newItem) => {
-        setClothingItems((prevItems) => [newItem, ...prevItems]);
+        setClothingItems((prevItems) => [newItem.data, ...prevItems]);
         closeActiveModal();
         resetValues();
       })
@@ -207,9 +209,9 @@ function App() {
     }
     auth
       .getCurrentUser(jwt)
-      .then(({ name, avatar, _id }) => {
+      .then((userData) => {
         setIsLoggedIn(true);
-        setCurrentUser({ name, avatar, _id });
+        setCurrentUser(userData);
       })
       .catch(console.error);
   }, []);
@@ -253,6 +255,7 @@ function App() {
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
                     handleCardLike={handleCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />
@@ -294,11 +297,13 @@ function App() {
             onClose={closeActiveModal}
             isOpen={activeModal === "register"}
             onRegisterSubmit={handleRegistration}
+            handleSignInClick={handleSignInClick}
           />
           <LoginModal
             onClose={closeActiveModal}
             isOpen={activeModal === "sign-in"}
             handleLogIn={handleLogIn}
+            handleRegisterClick={handleRegisterClick}
           />
           <EditProfileModal
             onClose={closeActiveModal}

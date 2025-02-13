@@ -7,7 +7,14 @@ function ModalWithForm({
   isOpen,
   onClose,
   onSubmit,
+  isSwitchSeen,
+  onSwitch,
+  switchText,
 }) {
+  const switchButtonClassName = `modal__switch ${
+    isSwitchSeen ? "" : "modal__switch_hidden"
+  }`;
+
   if (!isOpen) {
     return null;
   }
@@ -25,6 +32,13 @@ function ModalWithForm({
           {children}
           <button type="submit" className="modal__submit">
             {buttonText}
+          </button>
+          <button
+            type="button"
+            onClick={onSwitch}
+            className={switchButtonClassName}
+          >
+            {switchText}
           </button>
         </form>
       </div>

@@ -36,6 +36,9 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit }) {
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      isSwitchSeen={false}
+      onSwitch={null}
+      switchText={""}
     >
       <label htmlFor="name" className="modal__label">
         Name

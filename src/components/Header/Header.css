@@ -17,13 +17,17 @@
 }
 
 .header__add-clothes-button {
-  margin: 0 20px 0 20px;
+  margin: 0 0 0 20px;
   border: none;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
   font-family: "Cabinet Grotesk", sans-serif;
   padding: 0;
+}
+
+.header__add-clothes-button_hidden {
+  display: none;
 }
 
 .header__user-container {
@@ -33,7 +37,7 @@
 }
 
 .header__username {
-  margin: 0;
+  margin: 0 0 0 20px;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;

@@ -49,5 +49,30 @@
 }
 
 .modal__submit:hover {
+background-color: #000;
+}
+
+.modal__switch{
+  background: transparent;
+  color: rgb(0 0 0 / 0.5);
+  border: none;
+  width: 134px;
+  height: 36px;
+  position: absolute;
+  bottom: 36px;
+  left: 174px;
+  text-align: left;
+}
+
+.modal__switch:hover {
+  cursor: pointer;
+  color: #000
+}
+
+.modal__switch_hidden {
+  display: none;
+}
+
+.modal__submit:hover {
   cursor: pointer;
 }

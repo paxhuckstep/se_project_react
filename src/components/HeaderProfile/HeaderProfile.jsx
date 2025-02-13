@@ -31,7 +31,7 @@ function HeaderProfile({ isLoggedin, handleRegisterClick, handleSignInClick }) {
         </button>
         <button
           onClick={handleSignInClick}
-          className="header-profile__button header-profile__button_login"
+          className="header-profile__button"
         >
           Log In
         </button>

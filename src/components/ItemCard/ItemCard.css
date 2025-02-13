@@ -30,20 +30,27 @@
   line-height: 20px;
 }
 
-.card__like-button-inactive {
-  background: transparent url("../../assets/like-inactive.png") center no-repeat;
+.card__like-button {
   width: 20px;
   height: 18px;
   border: none;
   margin: 3px 0 0 10px;
 }
 
+.card__like-button:hover {
+  cursor: pointer;
+}
+
+.card__like-button-inactive {
+  background: transparent url("../../assets/like-inactive.png") center no-repeat;
+}
+
 .card__like-button-active {
   background: transparent url("../../assets/like-active.png") center no-repeat;
-  width: 20px;
-  height: 18px;
-  border: none;
-  margin: 3px 0 0 10px;
+}
+
+.card__like-button_hidden {
+  visibility: hidden;
 }
 
 .card__image {

@@ -1,6 +1,5 @@
 import "./Header.css";
 import logo from "../../assets/logo.png";
-// import avatar from "../../assets/avatar.png";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom";
 import HeaderProfile from "../HeaderProfile/HeaderProfile"
@@ -10,6 +9,8 @@ function Header({ handleAddClick, weatherData, isLoggedIn, handleRegisterClick, 
     month: "long",
     day: "numeric",
   });
+
+  const addButtonClassName = `header__add-clothes-button ${isLoggedIn ? "" : "header__add-clothes-button_hidden"}`
 
   return (
     <header className="header">
@@ -23,7 +24,7 @@ function Header({ handleAddClick, weatherData, isLoggedIn, handleRegisterClick, 
       <button
         onClick={handleAddClick}
         type="button"
-        className="header__add-clothes-button"
+        className={addButtonClassName}
       >
         + Add Clothes
       </button>

@@ -2,7 +2,7 @@ import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
 
-function RegisterModal({ isOpen, onClose, onRegisterSubmit }) {
+function RegisterModal({ isOpen, onClose, onRegisterSubmit, handleSignInClick }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
@@ -51,11 +51,14 @@ function RegisterModal({ isOpen, onClose, onRegisterSubmit }) {
 
   return (
     <ModalWithForm
-      title="Register"
-      buttonText="Register"
+      title="Sign Up"
+      buttonText="Sign Up"
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      isSwitchSeen={true}
+      onSwitch={handleSignInClick}
+      switchText={"or Log In"}
     >
       <label htmlFor="name" className="modal__label">
         name
@@ -82,7 +85,6 @@ function RegisterModal({ isOpen, onClose, onRegisterSubmit }) {
           id="avatar"
           placeholder="avatar url"
           minLength="1"
-          maxLength="30"
           required
           onChange={handleAvatarChange}
           value={avatar}
