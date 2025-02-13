@@ -1,10 +1,13 @@
 import "./EditProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function EditProfileModal({ isOpen, onClose, handleEditProfileSubmit }) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
+
+  const currentUser = useContext(CurrentUserContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +42,7 @@ function EditProfileModal({ isOpen, onClose, handleEditProfileSubmit }) {
           name="name"
           className="modal__input"
           id="new-name-input"
-          placeholder="name"
+          placeholder={currentUser.name}
           minLength="1"
           required
           onChange={handleNameChange}
@@ -53,7 +56,7 @@ function EditProfileModal({ isOpen, onClose, handleEditProfileSubmit }) {
           name="avatar"
           className="modal__input modal__input_last"
           id="new-avatar-input"
-          placeholder="Avatar"
+          placeholder={currentUser.avatar}
           minLength="2"
           required
           onChange={handleAvatarChange}

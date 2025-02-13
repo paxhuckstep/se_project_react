@@ -175,14 +175,14 @@ function App() {
               cards.map((item) => (item._id === _id ? updatedCard : item))
             );
           })
-          .catch((err) => console.log(err))
+          .catch(console.error)
       : removeCardLike(_id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === _id ? updatedCard : item))
             );
           })
-          .catch((err) => console.log(err));
+          .catch(console.error);
   };
 
   useEffect(() => {
@@ -268,6 +268,8 @@ function App() {
                     handleAddClick={handleAddClick}
                     handleLogOut={handleLogOut}
                     handleEditProfileClick={handleEditProfileClick}
+                    handleCardLike={handleCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />

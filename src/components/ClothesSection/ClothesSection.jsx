@@ -3,7 +3,7 @@ import ItemCard from "../ItemCard/ItemCard";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
-function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
+function ClothesSection({ onCardClick, clothingItems, handleAddClick, handleCardLike, isLoggedIn }) {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -24,6 +24,8 @@ function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
                   key={item._id}
                   item={item}
                   onCardClick={onCardClick}
+                  handleCardLike={handleCardLike}
+                  isLoggedIn={isLoggedIn}
                 />
               );
           })}

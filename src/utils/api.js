@@ -65,4 +65,4 @@ function editCurrentUser({ name, avatar }, token) {
   }).then(checkResponse);
 }
 
-export { getItems, addItem, deleteItem, addCardLike, removeCardLike, editCurrentUser };
+export { getItems, addItem, deleteItem, addCardLike, removeCardLike, editCurrentUser, checkResponse };

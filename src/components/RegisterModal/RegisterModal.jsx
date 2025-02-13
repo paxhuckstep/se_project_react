@@ -2,7 +2,12 @@ import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
 
-function RegisterModal({ isOpen, onClose, onRegisterSubmit, handleSignInClick }) {
+function RegisterModal({
+  isOpen,
+  onClose,
+  onRegisterSubmit,
+  handleSignInClick,
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
@@ -15,7 +20,7 @@ function RegisterModal({ isOpen, onClose, onRegisterSubmit, handleSignInClick })
     setAvatar("");
     setPassword("");
     setConfirmPassword("");
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -119,7 +124,7 @@ function RegisterModal({ isOpen, onClose, onRegisterSubmit, handleSignInClick })
           value={password}
         />
       </label>
-      <label htmlFor="confirmPassword" className="modal__label">
+      <label htmlFor="confirm-password" className="modal__label">
         Confirm Password
         <input
           type="password"

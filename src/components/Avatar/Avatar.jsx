@@ -13,6 +13,7 @@ function Avatar() {
         <img
           id="avatar-image"
           src={currentUser.avatar}
+          alt="avatar-image"
           onError={() => setImageBroken(true)}
           className="avatar__image"
         />
