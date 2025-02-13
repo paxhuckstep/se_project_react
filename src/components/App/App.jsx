@@ -145,7 +145,7 @@ function App() {
 
     editCurrentUser({ name, avatar }, token)
       .then((res) => {
-        setCurrentUser(res); // does this work regardless?
+        setCurrentUser(res);
         closeActiveModal();
       })
       .catch(console.error);
