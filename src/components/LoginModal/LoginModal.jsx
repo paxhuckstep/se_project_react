@@ -38,7 +38,7 @@ function LoginModal({isOpen, onClose, handleLogIn, handleRegisterClick
     onSwitch={handleRegisterClick}
     switchText={"or Sign Up"}
   >
-    <label htmlFor="email" className="modal__label">
+    <label htmlFor="login-email" className="modal__label">
       E-mail
       <input
         type="email"
