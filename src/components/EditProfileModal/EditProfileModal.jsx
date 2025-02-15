@@ -47,7 +47,6 @@ function EditProfileModal({ isOpen, onClose, handleEditProfileSubmit }) {
           name="name"
           className="modal__input"
           id="new-name-input"
-          // placeholder={currentUser.name}
           placeholder="New name"
           minLength="1"
           required
@@ -62,7 +61,6 @@ function EditProfileModal({ isOpen, onClose, handleEditProfileSubmit }) {
           name="avatar"
           className="modal__input modal__input_last"
           id="new-avatar-input"
-          // placeholder={currentUser.avatar}
           placeholder="New avatar"
           minLength="2"
           required
