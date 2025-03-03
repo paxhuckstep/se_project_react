@@ -1,9 +1,5 @@
 import { checkResponse } from "./api";
 
-//(res) => {
-//   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-// }
-
 const Base_Url = "http://localhost:3001";
 
 export const register = (name, avatar, email, password) => {
