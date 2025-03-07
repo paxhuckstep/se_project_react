@@ -9,7 +9,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "pm run build && scp -r ./dist/* paxhuckstep@34.168.233.221:/home/paxhuckstep/frontend"
+    "deploy": "npm run build && scp -r ./dist/* paxhuckstep@34.168.233.221:/home/paxhuckstep/frontend"
 
   },
   "dependencies": {
