@@ -87,8 +87,9 @@ function App() {
     if (password === confirmPassword) {
       auth
         .register(name, avatar, email, password)
-        .then((userData) => {
-          setCurrentUser(userData);
+        .then((signupInfo) => {
+          setCurrentUser(signupInfo.user);
+          setToken(signupInfo.token);
           setIsLoggedIn(true);
           resetValues();
           closeActiveModal();
