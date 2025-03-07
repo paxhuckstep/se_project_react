@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3002";
+import { Base_Url } from "./constants";
 
 function checkResponse(res) {
   if (res.ok) {
@@ -8,11 +8,11 @@ function checkResponse(res) {
 }
 
 function getItems() {
-  return fetch(`${baseUrl}/items`).then(checkResponse);
+  return fetch(`${Base_Url}/items`).then(checkResponse);
 }
 
 function addItem({ name, imageUrl, weather, token }) {
-  return fetch(`${baseUrl}/items`, {
+  return fetch(`${Base_Url}/items`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -28,7 +28,7 @@ function addItem({ name, imageUrl, weather, token }) {
 }
 
 function deleteItem(itemId, token) {
-  return fetch(`${baseUrl}/items/${itemId}`, {
+  return fetch(`${Base_Url}/items/${itemId}`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${token}`,
@@ -37,7 +37,7 @@ function deleteItem(itemId, token) {
 }
 
 function addCardLike(itemId, token) {
-  return fetch(`${baseUrl}/items/${itemId}/likes`, {
+  return fetch(`${Base_Url}/items/${itemId}/likes`, {
     method: "PUT",
     headers: {
       authorization: `Bearer ${token}`,
@@ -46,16 +46,16 @@ function addCardLike(itemId, token) {
 }
 
 function removeCardLike(itemId, token) {
-  return fetch(`${baseUrl}/items/${itemId}/likes`, {
+  return fetch(`${Base_Url}/items/${itemId}/likes`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${token}`,
     },
-}).then(checkResponse);
+  }).then(checkResponse);
 }
 
 function editCurrentUser({ name, avatar }, token) {
-  return fetch(`${baseUrl}/users/me`, {
+  return fetch(`${Base_Url}/users/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -65,4 +65,12 @@ function editCurrentUser({ name, avatar }, token) {
   }).then(checkResponse);
 }
 
-export { getItems, addItem, deleteItem, addCardLike, removeCardLike, editCurrentUser, checkResponse };
+export {
+  getItems,
+  addItem,
+  deleteItem,
+  addCardLike,
+  removeCardLike,
+  editCurrentUser,
+  checkResponse,
+};
